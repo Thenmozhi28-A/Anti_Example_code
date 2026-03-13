@@ -1,14 +1,8 @@
 import { MdClose } from 'react-icons/md'
 import Button from './ui/Button'
-import type { MedicalRecord } from '../types/TypesForAll'
+import type { ViewRecordModalProps } from '../types/TypesForAll'
 
-interface Props {
-    isOpen: boolean
-    onClose: () => void
-    record: MedicalRecord | null
-}
-
-export default function ViewRecordModal({ isOpen, onClose, record }: Props) {
+export default function ViewRecordModal({ isOpen, onClose, record }: ViewRecordModalProps) {
     if (!isOpen || !record) return null
 
     const getStatusBadgeStyles = (status: string) => {

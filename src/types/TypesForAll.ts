@@ -132,3 +132,38 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     loading?: boolean
     children?: ReactNode
 }
+
+// ─── Modal Props ─────────────────────────────────────────────────────────────
+export interface ViewRecordModalProps {
+    isOpen: boolean
+    onClose: () => void
+    record: MedicalRecord | null
+}
+
+export interface ViewPrescriptionModalProps {
+    isOpen: boolean
+    onClose: () => void
+    prescription: Prescription | null
+}
+
+export interface EditPrescriptionModalProps {
+    isOpen: boolean
+    onClose: () => void
+    prescription: Prescription | null
+}
+
+export interface EditMedicalRecordModalProps {
+    isOpen: boolean
+    onClose: () => void
+    record: MedicalRecord | null
+}
+
+export interface AddPrescriptionModalProps {
+    isOpen: boolean
+    onClose: () => void
+}
+
+export interface AddMedicalRecordModalProps {
+    isOpen: boolean
+    onClose: () => void
+}

@@ -116,7 +116,7 @@ export default function Dashboard() {
             </div>
 
             {/* 2. STATS CARDS */}
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map((stat, idx) => (
                     <div key={idx} className={`bg-white rounded-xl shadow-sm p-4 hover:shadow-md transition-all duration-300 hover:border-l-4 ${stat.color} flex items-center gap-4`}>
                         <div className="bg-slate-50 p-3 rounded-xl">
@@ -139,7 +139,7 @@ export default function Dashboard() {
             {/* 4. TODAY'S UPCOMING */}
             <section className="space-y-6">
                 <h2 className="text-xl font-black text-slate-900 tracking-tight">Today's Upcoming Appointments</h2>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 shadow-sm md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {appointments.slice(0, 3).map((appt) => (
                         <div key={appt.id} className="bg-white rounded-lg p-8 border border-slate-200 flex flex-col gap-5 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 group">
                             <div className="flex justify-between items-start">
@@ -183,7 +183,8 @@ export default function Dashboard() {
                         View All
                     </Link>
                 </div>
-                <div className="bg-white border border-slate-100 rounded-[2.5rem] shadow-sm overflow-hidden">
+                <div className="bg-white border border-slate-100 rounded-3xl shadow-sm overflow-hidden">
+                    <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 italic">
                             <tr>
@@ -237,6 +238,7 @@ export default function Dashboard() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </section>
 

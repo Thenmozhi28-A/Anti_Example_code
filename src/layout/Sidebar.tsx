@@ -12,9 +12,10 @@ import Button from '../components/ui/Button'
 
 interface SidebarProps {
     onLogoutClick: () => void
+    onClose?: () => void
 }
 
-const Sidebar = ({ onLogoutClick }: SidebarProps) => {
+const Sidebar = ({ onLogoutClick, onClose }: SidebarProps) => {
     const navItems = [
         { label: 'Dashboard', path: '/dashboard', icon: <FiGrid size={20} /> },
         { label: 'Appointments', path: '/appointments', icon: <FiCalendar size={20} /> },
@@ -27,10 +28,21 @@ const Sidebar = ({ onLogoutClick }: SidebarProps) => {
     return (
         <aside className="h-full flex flex-col bg-slate-900 text-white shadow-xl overflow-y-auto no-scrollbar border-r border-slate-800">
             {/* Logo Section */}
-            <div className="flex h-20 items-center justify-center px-6 border-b border-slate-800/50">
+            <div className="flex h-20 items-center justify-between px-6 border-b border-slate-800/50">
                 <div className="flex items-center gap-3">
                     <span className="text-lg font-black tracking-tighter uppercase italic">System Admin</span>
                 </div>
+                {onClose && (
+                    <button 
+                        onClick={onClose}
+                        className="lg:hidden p-2 text-slate-400 hover:text-white transition-colors"
+                        title="Close Menu"
+                    >
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                )}
             </div>
 
             {/* Navigation Section */}

@@ -3,14 +3,10 @@ import { MdClose } from 'react-icons/md'
 import Button from './ui/Button'
 import { useAddPrescriptionMutation } from '../store/api/prescriptionsApi'
 import toast from 'react-hot-toast'
-import type { Prescription } from '../types/TypesForAll'
+import FormInput from './ui/FormInput'
+import type { Prescription, AddPrescriptionModalProps } from '../types/TypesForAll'
 
-interface Props {
-    isOpen: boolean
-    onClose: () => void
-}
-
-export default function AddPrescriptionModal({ isOpen, onClose }: Props) {
+export default function AddPrescriptionModal({ isOpen, onClose }: AddPrescriptionModalProps) {
     const [addPrescription, { isLoading }] = useAddPrescriptionMutation()
     const [formData, setFormData] = useState<Partial<Prescription>>({
         patientName: '',
@@ -81,53 +77,41 @@ export default function AddPrescriptionModal({ isOpen, onClose }: Props) {
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[70vh] overflow-y-auto scrollbar-hide">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Patient Name *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.patientName}
-                                onChange={e => setFormData({ ...formData, patientName: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="Enter patient name"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Patient ID *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.patientId}
-                                onChange={e => setFormData({ ...formData, patientId: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="e.g. 1024"
-                            />
-                        </div>
+                        <FormInput
+                            label="Patient Name *"
+                            required
+                            type="text"
+                            value={formData.patientName}
+                            onChange={e => setFormData({ ...formData, patientName: e.target.value })}
+                            placeholder="Enter patient name"
+                        />
+                        <FormInput
+                            label="Patient ID *"
+                            required
+                            type="text"
+                            value={formData.patientId}
+                            onChange={e => setFormData({ ...formData, patientId: e.target.value })}
+                            placeholder="e.g. 1024"
+                        />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Medicine Name *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.medicineName}
-                                onChange={e => setFormData({ ...formData, medicineName: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="e.g. Amoxicillin"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Dosage *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.dosage}
-                                onChange={e => setFormData({ ...formData, dosage: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="e.g. 500mg"
-                            />
-                        </div>
+                        <FormInput
+                            label="Medicine Name *"
+                            required
+                            type="text"
+                            value={formData.medicineName}
+                            onChange={e => setFormData({ ...formData, medicineName: e.target.value })}
+                            placeholder="e.g. Amoxicillin"
+                        />
+                        <FormInput
+                            label="Dosage *"
+                            required
+                            type="text"
+                            value={formData.dosage}
+                            onChange={e => setFormData({ ...formData, dosage: e.target.value })}
+                            placeholder="e.g. 500mg"
+                        />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -164,28 +148,18 @@ export default function AddPrescriptionModal({ isOpen, onClose }: Props) {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Start Date</label>
-                            <input
-                                type="date"
-                                title="Start Date"
-                                placeholder="YYYY-MM-DD"
-                                value={formData.startDate}
-                                onChange={e => setFormData({ ...formData, startDate: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">End Date</label>
-                            <input
-                                type="date"
-                                title="End Date"
-                                placeholder="YYYY-MM-DD"
-                                value={formData.endDate}
-                                onChange={e => setFormData({ ...formData, endDate: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                            />
-                        </div>
+                        <FormInput
+                            label="Start Date"
+                            type="date"
+                            value={formData.startDate}
+                            onChange={e => setFormData({ ...formData, startDate: e.target.value })}
+                        />
+                        <FormInput
+                            label="End Date"
+                            type="date"
+                            value={formData.endDate}
+                            onChange={e => setFormData({ ...formData, endDate: e.target.value })}
+                        />
                     </div>
 
                     <div className="space-y-2">

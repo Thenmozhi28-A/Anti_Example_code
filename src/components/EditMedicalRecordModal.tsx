@@ -3,15 +3,10 @@ import { MdClose } from 'react-icons/md'
 import Button from './ui/Button'
 import { useUpdateRecordMutation } from '../store/api/medicalRecordsApi'
 import toast from 'react-hot-toast'
-import type { MedicalRecord } from '../types/TypesForAll'
+import FormInput from './ui/FormInput'
+import type { MedicalRecord, EditMedicalRecordModalProps } from '../types/TypesForAll'
 
-interface Props {
-    isOpen: boolean
-    onClose: () => void
-    record: MedicalRecord | null
-}
-
-export default function EditMedicalRecordModal({ isOpen, onClose, record }: Props) {
+export default function EditMedicalRecordModal({ isOpen, onClose, record }: EditMedicalRecordModalProps) {
     const [updateRecord, { isLoading }] = useUpdateRecordMutation()
     const [formData, setFormData] = useState<Partial<MedicalRecord>>({})
 
@@ -86,28 +81,22 @@ export default function EditMedicalRecordModal({ isOpen, onClose, record }: Prop
 
                 <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[70vh] overflow-y-auto scrollbar-hide">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Patient Name *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.patientName || ''}
-                                onChange={e => setFormData({ ...formData, patientName: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="Enter patient name"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Patient ID *</label>
-                            <input
-                                required
-                                type="text"
-                                value={formData.patientId || ''}
-                                onChange={e => setFormData({ ...formData, patientId: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                placeholder="e.g. 1024"
-                            />
-                        </div>
+                        <FormInput
+                            label="Patient Name *"
+                            required
+                            type="text"
+                            value={formData.patientName || ''}
+                            onChange={e => setFormData({ ...formData, patientName: e.target.value })}
+                            placeholder="Enter patient name"
+                        />
+                        <FormInput
+                            label="Patient ID *"
+                            required
+                            type="text"
+                            value={formData.patientId || ''}
+                            onChange={e => setFormData({ ...formData, patientId: e.target.value })}
+                            placeholder="e.g. 1024"
+                        />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -126,17 +115,12 @@ export default function EditMedicalRecordModal({ isOpen, onClose, record }: Prop
                                 <option>Scan/X-Ray</option>
                             </select>
                         </div>
-                        <div className="space-y-2">
-                            <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Date</label>
-                            <input
-                                type="date"
-                                title="Date"
-                                placeholder="YYYY-MM-DD"
-                                value={formData.date || ''}
-                                onChange={e => setFormData({ ...formData, date: e.target.value })}
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3 px-4 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                            />
-                        </div>
+                        <FormInput
+                            label="Date"
+                            type="date"
+                            value={formData.date || ''}
+                            onChange={e => setFormData({ ...formData, date: e.target.value })}
+                        />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

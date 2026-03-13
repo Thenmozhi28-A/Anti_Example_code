@@ -8,6 +8,7 @@ import { UserProvider } from '../context/UserContext'
 
 const AppLayout = () => {
     const navigate = useNavigate()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [showLogoutModal, setShowLogoutModal] = useState(false)
 
     const handleLogoutConfirm = () => {
@@ -19,20 +20,35 @@ const AppLayout = () => {
     return (
         <UserProvider>
             <div className="flex h-screen w-full overflow-hidden bg-[#F8FAFC]">
-                {/* 1. Sidebar - Fixed width based on 2/12 columns (~16.6vw) */}
-                <div className="w-[15%] h-full shrink-0">
-                    <Sidebar onLogoutClick={() => setShowLogoutModal(true)} />
+                {/* 1. Sidebar - Fixed width on large screens, Drawer on mobile */}
+                <div 
+                    className={`fixed inset-0 z-50 transition-all duration-300 lg:static lg:block lg:w-[20%] xl:w-[15%] h-full shrink-0 ${
+                        isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+                    }`}
+                >
+                    <Sidebar 
+                        onLogoutClick={() => setShowLogoutModal(true)} 
+                        onClose={() => setIsSidebarOpen(false)}
+                    />
                 </div>
 
-                {/* 2. Main Content Wrapper - Remaining 10/12 columns */}
+                {/* Mobile Overlay */}
+                {isSidebarOpen && (
+                    <div 
+                        className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden"
+                        onClick={() => setIsSidebarOpen(false)}
+                    />
+                )}
+
+                {/* 2. Main Content Wrapper */}
                 <div className="flex-1 flex flex-col h-full bg-slate-50 overflow-hidden relative">
                     {/* Fixed Header */}
-                    <Header />
+                    <Header onMenuClick={() => setIsSidebarOpen(true)} />
 
                     {/* Scrollable Content Area */}
                     <main className="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC]">
-                        <div className="p-10 pb-20">
-                            <div className="px-4">
+                        <div className="p-4 md:p-10 pb-20">
+                            <div className="max-w-7xl mx-auto">
                                 <Outlet />
                             </div>
                         </div>

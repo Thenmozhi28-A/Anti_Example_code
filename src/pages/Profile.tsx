@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useUser } from '../context/UserContext'
 import { MdEdit, MdSave, MdClose, MdCameraAlt } from 'react-icons/md'
 import toast from 'react-hot-toast'
+import FormInput from '../components/ui/FormInput'
 
 export default function Profile() {
     const { fullName, email, profileImage, updateUser, updateProfileImage } = useUser()
@@ -152,37 +153,28 @@ export default function Profile() {
                                 </div>
                                 <p className="text-[10px] text-gray-400 mt-2 uppercase tracking-widest font-bold">Click avatar to change</p>
 
-                                <div className="space-y-4 mt-6 text-left">
-                                    <div className="space-y-1.5">
-                                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Name</label>
-                                        <input
-                                            type="text"
-                                            value={editName}
-                                            onChange={e => setEditName(e.target.value)}
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm font-semibold text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                            placeholder="Full Name"
-                                        />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Email</label>
-                                        <input
-                                            type="email"
-                                            value={editEmail}
-                                            onChange={e => setEditEmail(e.target.value)}
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm font-semibold text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                            placeholder="Email Address"
-                                        />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Location</label>
-                                        <input
-                                            type="text"
-                                            value={editLocation}
-                                            onChange={e => setEditLocation(e.target.value)}
-                                            className="w-full bg-gray-50 border border-gray-200 rounded-xl py-2.5 px-4 text-sm font-semibold text-gray-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-                                            placeholder="City, State"
-                                        />
-                                    </div>
+                                <div className="space-y-5 mt-6 text-left">
+                                    <FormInput
+                                        label="Name"
+                                        type="text"
+                                        value={editName}
+                                        onChange={e => setEditName(e.target.value)}
+                                        placeholder="Full Name"
+                                    />
+                                    <FormInput
+                                        label="Email"
+                                        type="email"
+                                        value={editEmail}
+                                        onChange={e => setEditEmail(e.target.value)}
+                                        placeholder="Email Address"
+                                    />
+                                    <FormInput
+                                        label="Location"
+                                        type="text"
+                                        value={editLocation}
+                                        onChange={e => setEditLocation(e.target.value)}
+                                        placeholder="City, State"
+                                    />
                                 </div>
 
                                 <div className="flex gap-3 mt-6">

@@ -1,14 +1,8 @@
 import { MdClose } from 'react-icons/md'
 import Button from './ui/Button'
-import type { Prescription } from '../types/TypesForAll'
+import type { ViewPrescriptionModalProps } from '../types/TypesForAll'
 
-interface Props {
-    isOpen: boolean
-    onClose: () => void
-    prescription: Prescription | null
-}
-
-export default function ViewPrescriptionModal({ isOpen, onClose, prescription }: Props) {
+export default function ViewPrescriptionModal({ isOpen, onClose, prescription }: ViewPrescriptionModalProps) {
     if (!isOpen || !prescription) return null
 
     const getStatusBadgeStyles = (status: string) => {

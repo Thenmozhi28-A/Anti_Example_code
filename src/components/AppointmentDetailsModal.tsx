@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { MdClose, MdEventNote, MdAssignment, MdLocalHospital, MdArrowBack } from 'react-icons/md'
 import type { AppointmentDetailsModalProps } from '../types/TypesForAll'
 import Button from './ui/Button'
+import FormInput from './ui/FormInput'
 
 export default function AppointmentDetailsModal({ isOpen, onClose, appointment, onSave }: AppointmentDetailsModalProps) {
     const [isEditMode, setIsEditMode] = useState(false)
@@ -129,24 +130,22 @@ export default function AppointmentDetailsModal({ isOpen, onClose, appointment, 
                         </div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-2 gap-6 mb-8">
-                        <div className="col-span-2 sm:col-span-1">
-                            <label htmlFor="editTime" className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Scheduled Time</label>
-                            <input
-                                id="editTime"
-                                type="time"
-                                value={editData?.scheduledTime || ''}
-                                onChange={e => setEditData(prev => prev ? { ...prev, scheduledTime: e.target.value } : null)}
-                                className="border border-gray-200 rounded-xl px-4 py-2.5 w-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
-                            />
-                        </div>
-                        <div className="col-span-2 sm:col-span-1">
-                            <label htmlFor="editStatus" className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Status</label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
+                        <FormInput
+                            label="Scheduled Time"
+                            type="time"
+                            value={editData?.scheduledTime || ''}
+                            onChange={e => setEditData(prev => prev ? { ...prev, scheduledTime: e.target.value } : null)}
+                            placeholder="e.g. 10:30 AM"
+                        />
+                        <div className="space-y-1.5">
+                            <label htmlFor="editStatus" className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Status</label>
                             <select
                                 id="editStatus"
+                                title="Status"
                                 value={editData?.status || 'Confirmed'}
                                 onChange={e => setEditData(prev => prev ? { ...prev, status: e.target.value as any } : null)}
-                                className="border border-gray-200 rounded-xl px-4 py-2.5 w-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-2.5 px-4 text-sm font-semibold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none cursor-pointer"
                             >
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Pending">Pending</option>
@@ -154,13 +153,14 @@ export default function AppointmentDetailsModal({ isOpen, onClose, appointment, 
                                 <option value="Completed">Completed</option>
                             </select>
                         </div>
-                        <div className="col-span-2">
-                            <label htmlFor="editDoctor" className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Doctor / Specialist</label>
+                        <div className="col-span-full space-y-1.5">
+                            <label htmlFor="editDoctor" className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Doctor Type</label>
                             <select
                                 id="editDoctor"
+                                title="Doctor Type"
                                 value={editData?.doctorType || ''}
                                 onChange={e => setEditData(prev => prev ? { ...prev, doctorType: e.target.value } : null)}
-                                className="border border-gray-200 rounded-xl px-4 py-2.5 w-full text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl py-2.5 px-4 text-sm font-semibold text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none cursor-pointer"
                             >
                                 <option value="">Select doctor type...</option>
                                 <optgroup label="Heart Related">
