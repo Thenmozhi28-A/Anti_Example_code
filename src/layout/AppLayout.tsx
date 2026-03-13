@@ -21,20 +21,19 @@ const AppLayout = () => {
         <UserProvider>
             <div className="flex h-screen w-full overflow-hidden bg-[#F8FAFC]">
                 {/* 1. Sidebar - Fixed width on large screens, Drawer on mobile */}
-                <div 
-                    className={`fixed inset-0 z-50 transition-all duration-300 lg:static lg:block lg:w-[20%] xl:w-[15%] h-full shrink-0 ${
-                        isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-                    }`}
+                <div
+                    className={`fixed inset-0 z-50 transition-all duration-300 lg:static lg:block lg:w-[20%] xl:w-[15%] h-full shrink-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+                        }`}
                 >
-                    <Sidebar 
-                        onLogoutClick={() => setShowLogoutModal(true)} 
+                    <Sidebar
+                        onLogoutClick={() => setShowLogoutModal(true)}
                         onClose={() => setIsSidebarOpen(false)}
                     />
                 </div>
 
                 {/* Mobile Overlay */}
                 {isSidebarOpen && (
-                    <div 
+                    <div
                         className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden"
                         onClick={() => setIsSidebarOpen(false)}
                     />
@@ -48,7 +47,7 @@ const AppLayout = () => {
                     {/* Scrollable Content Area */}
                     <main className="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC]">
                         <div className="p-4 md:p-10 pb-20">
-                            <div className="max-w-7xl mx-auto">
+                            <div className="max-w-9xl mx-auto">
                                 <Outlet />
                             </div>
                         </div>
